@@ -61,9 +61,9 @@ jobs:
       - name: Upload file...
         id: ec2-upload
         run: |
-          echo "${{ secrets.EC2_SSH }}" > demo-ssh.pem
-          chmod 400 demo-ssh.pem
-          scp -o StrictHostKeyChecking=no  -i "demo-ssh.pem" app.jar ${{ secrets.EC2_HOST }}
+          echo "${{ secrets.EC2_SSH }}" > ~/.ssh/demo-ssh.pem
+          chmod 400 ~/.ssh/demo-ssh.pem
+          scp -o StrictHostKeyChecking=no  -i "~/.ssh/demo-ssh.pem" app.jar ${{ secrets.EC2_HOST }}:${{ secrets.EC2_DIRECTORY }}
         continue-on-error: true
       - name: Get Date time...
         id: id-date
@@ -73,6 +73,4 @@ jobs:
       - if: ${{ success() && steps.ec2-upload.conclusion == 'success' }}
         name: Register date...
         run: |
-          echo "JAR File has been uploaded at: ${{ steps.id-date.outputs.time }}"    
-          
-            
+          echo "JAR File has been uploaded at: ${{ steps.id-date.outputs.time }}"
