@@ -1,0 +1,54 @@
+server:
+  port: 8080
+
+spring:
+  application:
+    name: spring-app
+  datasource:
+    url: jdbc:postgresql://${DB_URL}/${DB_DATABASE}
+    username: ${DB_USERNAME}
+    password: ${DB_PASSWORD}
+    driver-class-name: org.postgresql.Driver
+  jpa:
+    database: postgresql
+    hibernate:
+      ddl-auto: none
+    generate-ddl: false
+    show-sql: true
+  sql:
+    init:
+      mode: always
+      separator: ^^^ END OF SCRIPT ^^^
+      schema-locations:
+        - classpath:sql/functions.sql
+        - classpath:sql/tables.sql
+        - classpath:sql/triggers.sql
+        - classpath:sql/main.sql
+        
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+  endpoint:
+    health:
+      show-details: always
+              
+jwk:
+  private:
+    key: classpath:keys/private.pem
+  public:
+    key: classpath:keys/public.pem
+  secret: 
+    issuer: ${SECRET_ISSUER}
+  expire: 3600
+
+auth:
+  login:
+    attemps: 3
+  lock:
+    expire: 10
+  secret:
+    authorization: ${SECRET_AUTHORIZATION}
+  

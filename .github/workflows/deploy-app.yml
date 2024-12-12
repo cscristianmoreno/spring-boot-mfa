@@ -1,0 +1,78 @@
+name: deploy-app
+
+on:
+  workflow_call:  
+
+env:
+  DEFAULT_VALUES: test
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    services:
+      postgres:
+        image: postgres:latest
+        ports:
+          - 5432:5432
+        env:
+          POSTGRES_USER: ${{ secrets.DB_USERNAME || env.DEFAULT_VALUES }}
+          POSTGRES_PASSWORD: ${{ secrets.DB_PASSWORD ||env.DEFAULT_VALUES }}
+          POSTGRES_DB: ${{ secrets.DB_DATABASE || env.DEFAULT_VALUES }}
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+    steps:
+      - name: Downloading artifact...
+        id: download-artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: spring-app
+      - name: Installing java...
+        uses: actions/setup-java@v4
+        with:
+          distribution: "temurin"
+          java-version: 21
+      - name: Run app...
+        id: app
+        run: |
+          java -jar app.jar
+        env:
+          DB_USERNAME: ${{ secrets.DB_USERNAME || env.DEFAULT_VALUES }}
+          DB_PASSWORD: ${{ secrets.DB_PASSWORD || env.DEFAULT_VALUES }}
+          DB_DATABASE: ${{ secrets.DB_DATABASE || env.DEFAULT_VALUES }}
+          DB_URL: ${{ secrets.DB_URL }}
+          SECRET_ISSUER: ${{ secrets.SECRET_ISSUER || env.DEFAULT_VALUES }}
+          SECRET_AUTHORIZATION: ${{ secrets.SECRET_AUTHORIZATION || env.DEFAULT_VALUES }}
+          spring.profiles.active: gh-action
+      - name: Successs...
+        run: |
+          echo Job has been completed.
+          
+  ec2-manager:
+    needs: [deploy]
+    runs-on: ubuntu-latest
+    steps:
+      - name: Downloading artifact...
+        uses: actions/download-artifact@v4
+        with:
+          name: spring-app
+      - name: Upload file...
+        id: ec2-upload
+        run: |
+          echo "${{ secrets.EC2_SSH }}" > demo-ssh.pem
+          chmod 400 demo-ssh.pem
+          scp -o StrictHostKeyChecking=no  -i "demo-ssh.pem" app.jar ${{ secrets.EC2_HOST }}
+        continue-on-error: true
+      - name: Get Date time...
+        id: id-date
+        uses: Kaven-Universe/github-action-current-date-time@v1
+        with:
+          format: "YYYY/MM/DD - HH:mm:ss"
+      - if: ${{ success() && steps.ec2-upload.conclusion == 'success' }}
+        name: Register date...
+        run: |
+          echo "JAR File has been uploaded at: ${{ steps.id-date.outputs.time }}"    
+          
+            

@@ -1,0 +1,9 @@
+{
+    "action": "workflow_call",
+    "inputs": {
+        "DB_URL": "127.0.0.1",
+        "DB_USERNAME": "test",
+        "DB_PASSWORD": "test",
+        "DB_DATABASE": "db_users"
+    }
+}

@@ -1,0 +1,14 @@
+name: main-workflow
+
+on: 
+  push: 
+    branches: [master]
+
+jobs:
+  build-app:
+    uses: ./.github/workflows/build-app.yml
+    
+  deploy-app:
+    needs: [build-app]
+    uses: ./.github/workflows/deploy-app.yml
+    
