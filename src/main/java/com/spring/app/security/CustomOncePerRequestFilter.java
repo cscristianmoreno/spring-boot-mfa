@@ -45,7 +45,7 @@ public class CustomOncePerRequestFilter extends OncePerRequestFilter {
             return;
         }
 
-        if (uri.equals("/actuator/health")) {
+        if (uri.equals("/actuator/health") || uri.equals("/server/turn-off")) {
             if (!verifySecretKey(request)) {
                 unauthorize(response, "You don't have access");
                 return;

@@ -1,0 +1,42 @@
+name: launch-app
+
+on:
+  workflow_dispatch: 
+    inputs:
+      ec2-host:
+        required: true
+        description: Provide EC2 host
+      ec2-username:
+        required: true
+        description: Provide EC2 username
+      ec2-ssh-key:
+        required: true
+        description: Provide EC2 SSH Key.
+
+jobs:
+  stop-server:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Stop app...
+        run: |
+          curl -X POST http://${{ github.event.inputs.ec2-host }}:8080/server/turn-off -H X-Authorization=${SECRET_AUTHORIZATION}
+      
+  launch:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Connecting to EC2 Instance and launch app...
+        run: |
+          echo "${{ github.event.inputs.ec2-ssh-key }}" > ~/.ssh/demo-ssh.pem
+          chmod 400 ~/.ssh/demo-ssh.pem
+          ssh -o StrictHostKeyChecking=no -i "~/.ssh/demo-ssh.pem" \
+           ${{ github.event.inputs.ec2-username }}@${{ github.event.inputs.ec2-host }} -o RemoteCommand="
+                sudo apt-get update -y
+                sudo apt-get upgrade -y
+                sudo apt-get install openjdk-21-jre-headless -y
+                sudo apt-get install dos2unix -y
+                dos2unix .env 
+                set -a
+                source .env
+                set +a
+                java -jar app.jar
+            "

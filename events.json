@@ -1,9 +1,8 @@
 {
-    "action": "workflow_call",
+    "action": "workflow_dispatch",
     "inputs": {
-        "DB_URL": "127.0.0.1",
-        "DB_USERNAME": "test",
-        "DB_PASSWORD": "test",
-        "DB_DATABASE": "db_users"
+        "ec2-host": "52.207.40.161",
+        "ec2-username": "ubuntu",
+        "ec2-ssh-key": "-----BEGIN RSA PRIVATE KEY-----\nMIIEowIBAAKCAQEAnUnMiDzUWZhA7jYPbjx2KgGwFfACkzfVjs6mKWy2Ft7TVb3W\nwe8HUc+UxPyG5AkYKYetPcjvbzeZ8SIW+4UwCwgjwiN3eq2AW5YmXdZ34Hqb3U8y\npqOhsBAWtTYFachXRXbe5V7Mn1mSW/hpNWymOq+F5/zCkOF+4c4uXFAI83xxxQco\nL6ne0yDQKD0dM4ObriQOOtQHAG+jPTofEKXdCYr/qHZ86I8erh8++1dj3Ka5iw4d\nuLDWexdKLgDALPC0e2uS4V1x8dpzKtxhbW+awkuiQSQasbpKpiICFh9776nrj724\niVsCt+qRsRufk5VkTz9cfI3V5dTFMAzeb7yPrwIDAQABAoIBABciy9seV332T1a6\nzPpCGn+DUAtqCnbtN5SSAQ8G1qH2lM9/5R8Rsdnu1stC+fSBAfTZ6Dm2XMHXQ+Wc\nRhUpOi/lOp1L6j85VjAinfIfofJ7FoIvLBwm5ZmoRC7Ti2hL98pX+eFzWFX4Lvco\nSxF4sdrgBqphG52EDc3ZLiiV/TsTUABcWiXXrb4ujgQQI929wO5IQXfwFJPewyt1\nrOwNMqpSidoCUTgCs1AQiJHkPJ/GYOA4N315M7bYkNDucCo18QcwRRahz9frDWir\n03FaptAaMaH54H3VQ2PA+YZzaxS3tZ7aLXwpZCJNmbKuphMX1xVQh/wqP0GxeLS6\nnLztysECgYEAyMhfyGQAq7yFiHxVsgaLmGkenFnpv8JB5PCaixrZQ/nczrmtiR/M\nm+6FtQuX2tCXQ7+n5wU58kGFG14S7CYsRtTKBeE+SDynx4i4/FINUoHKoWXZm8dL\npARcRfMYiuRXcroljG0UPd9wK1u9HyywQg4NJ0Kv8hh0qBvlLr60qisCgYEAyItN\np4tz/gh4ihkmuuZkm+mjFoVPEj0HGnFavBEmEpgleeTm0l44HmZE97UyglrMhY2M\nP+XL1tbhpb5QzMk1JvtdB2ZWpwGaNCN8g4/bKSlSAZh9NJENGtBlJK0zFxGfGouq\n9wrisrB957T2K2BdUlfwNVBTtSvlQT4hsuPzgo0CgYARQF4yep0wJFeY3Y4DaNqP\nsuCFcJhL+KXuxNmSgDEQzSQywvNtJ8VN1JW6c4+NpoSItqv3hpRvA0ArlM6taa4+\nO8RL8wmF7WhBFbdHPsmUQECn03d6EgqmwhUnkXaXYH0/B014nlqx4kPiBdTfG9jd\nJBXvPKSfeYh0dUkg1hPx1wKBgQCxNifQvfIpsOKTZdZLofuVqsdqxzIwM61rOG+t\ncJnsJHY5WIR/sLJ2anjXS07u0b2Y5pPggve1SPzssVhFHifR4p06RLydp1TUbedB\neoV3wgOtVUqOgP7LiwtVdZeH8xJdKr5Qv1XEASHA9q/xdJ4CfaLN+cV+euOC25x7\nr+MmoQKBgApn2lG6j8JhnmlfEvMX8xnqs4J5aykKnrW1tCg/MLQDeOt7Cwda66bg\nXf3+Jd2RcqNmpmaU0LS9KLKMPXjJzR/kt31+6TdJ+nQIgMU7EDMHWALJlkzUE5FN\nHUB1nMtgV5baYeM1tTWd3pnFLzq4GY60MfIWiQ95ba8fVWDyP2hW\n-----END RSA PRIVATE KEY-----"
     }
 }

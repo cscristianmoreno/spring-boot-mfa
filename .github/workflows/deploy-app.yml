@@ -46,7 +46,7 @@ jobs:
           SECRET_ISSUER: ${{ secrets.SECRET_ISSUER || env.DEFAULT_VALUES }}
           SECRET_AUTHORIZATION: ${{ secrets.SECRET_AUTHORIZATION || env.DEFAULT_VALUES }}
           spring.profiles.active: gh-action
-      - name: Successs...
+      - name: Success...
         run: |
           echo Job has been completed.
           
@@ -63,8 +63,7 @@ jobs:
         run: |
           echo "${{ secrets.EC2_SSH }}" > ~/.ssh/demo-ssh.pem
           chmod 400 ~/.ssh/demo-ssh.pem
-          scp -o StrictHostKeyChecking=no  -i "~/.ssh/demo-ssh.pem" app.jar ${{ secrets.EC2_HOST }}:${{ secrets.EC2_DIRECTORY }}
-        continue-on-error: true
+          scp -o StrictHostKeyChecking=no  -i "~/.ssh/demo-ssh.pem" app.jar ${{ secrets.EC2_SCP_HOST }}:${{ secrets.EC2_DIRECTORY }}
       - name: Get Date time...
         id: id-date
         uses: Kaven-Universe/github-action-current-date-time@v1

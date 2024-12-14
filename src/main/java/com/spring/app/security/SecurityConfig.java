@@ -28,7 +28,7 @@ public class SecurityConfig {
         return ( 
             httpSecurity
                 .authorizeHttpRequests((req) -> {
-                    req.requestMatchers("/auth/*", "/users/save", "/actuator/**").permitAll();
+                    req.requestMatchers("/auth/*", "/users/save", "/actuator/**", "/server/**").permitAll();
                     req.anyRequest().authenticated();
                 })
                 .csrf((csrf) -> {

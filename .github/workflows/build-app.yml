@@ -14,6 +14,7 @@ jobs:
         with:
           distribution: "temurin"
           java-version: 21
+          cache: "maven"
       - name: Compiling application...
         run: |
           mvn clean install
