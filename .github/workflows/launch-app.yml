@@ -21,22 +21,22 @@ jobs:
         run: |
           curl -X POST http://${{ github.event.inputs.ec2-host }}:8080/server/turn-off -H X-Authorization=${SECRET_AUTHORIZATION}
       
-  launch:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Connecting to EC2 Instance and launch app...
-        run: |
-          echo "${{ github.event.inputs.ec2-ssh-key }}" > ~/.ssh/demo-ssh.pem
-          chmod 400 ~/.ssh/demo-ssh.pem
-          ssh -o StrictHostKeyChecking=no -i "~/.ssh/demo-ssh.pem" \
-           ${{ github.event.inputs.ec2-username }}@${{ github.event.inputs.ec2-host }} -o RemoteCommand="
-                sudo apt-get update -y
-                sudo apt-get upgrade -y
-                sudo apt-get install openjdk-21-jre-headless -y
-                sudo apt-get install dos2unix -y
-                dos2unix .env 
-                set -a
-                source .env
-                set +a
-                java -jar app.jar
-            "
+  # launch:
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #     - name: Connecting to EC2 Instance and launch app...
+  #       run: |
+  #         echo "${{ github.event.inputs.ec2-ssh-key }}" > demo-ssh.pem
+  #         chmod 400 demo-ssh.pem
+  #         ssh -o StrictHostKeyChecking=no -i "demo-ssh.pem" \
+  #          ${{ github.event.inputs.ec2-username }}@${{ github.event.inputs.ec2-host }} -o RemoteCommand="
+  #               sudo apt-get update -y
+  #               sudo apt-get upgrade -y
+  #               sudo apt-get install openjdk-21-jre-headless -y
+  #               sudo apt-get install dos2unix -y
+  #               dos2unix .env 
+  #               set -a
+  #               source .env
+  #               set +a
+  #               java -jar app.jar
+  #           "
