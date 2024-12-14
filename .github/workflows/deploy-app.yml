@@ -61,9 +61,9 @@ jobs:
       - name: Upload file...
         id: ec2-upload
         run: |
-          echo "${{ secrets.EC2_SSH }}" > ~/.ssh/demo-ssh.pem
-          chmod 400 ~/.ssh/demo-ssh.pem
-          scp -o StrictHostKeyChecking=no  -i "~/.ssh/demo-ssh.pem" app.jar ${{ secrets.EC2_SCP_HOST }}:${{ secrets.EC2_DIRECTORY }}
+          echo "${{ secrets.EC2_SSH }}" > demo-ssh.pem
+          chmod 400 demo-ssh.pem
+          scp -o StrictHostKeyChecking=no  -i "demo-ssh.pem" app.jar ${{ secrets.EC2_SCP_HOST }}:${{ secrets.EC2_DIRECTORY }}
       - name: Get Date time...
         id: id-date
         uses: Kaven-Universe/github-action-current-date-time@v1
